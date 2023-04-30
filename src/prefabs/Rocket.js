@@ -9,14 +9,19 @@ class Rocket extends Phaser.GameObjects.Sprite {
       this.moveSpeed=2;
       this.sfxRocket = scene.sound.add('sfx_rocket'); // add rocket sfx
     }
-
     update(){
-        if(!this.isFiring){
+        /* if(!this.isFiring){
             if(keyLEFT.isDown && this.x>=borderUISize+this.width){
                 this.x-=this.moveSpeed;
             }else if(keyRIGHT.isDown && this.x<=game.config.width-borderUISize-this.width){
                 this.x+=this.moveSpeed;
             }
+        } */
+        // Allow the player to control the Rocket after it's fired (5)
+        if(keyLEFT.isDown && this.x>=borderUISize+this.width){
+            this.x-=this.moveSpeed;
+        }else if(keyRIGHT.isDown && this.x<=game.config.width-borderUISize-this.width){
+            this.x+=this.moveSpeed;
         }
 
         if(Phaser.Input.Keyboard.JustDown(keyF)&& !this.isFiring){
@@ -29,9 +34,22 @@ class Rocket extends Phaser.GameObjects.Sprite {
         if(this.y<=borderUISize*3+borderPadding){
             this.reset();
         }
+        if(game.input.mousePointer.x<=borderUISize){
+            this.x=borderUISize;
+        }else if(game.input.mousePointer.x>=game.config.width-borderUISize){
+            this.x=game.config.width-borderUISize;
+        }else{
+            this.x=game.input.mousePointer.x;
+        }
     }
     reset(){
         this.isFiring=false;
         this.y=game.config.height-borderUISize-borderPadding;
+    }
+    shootOnClick(){
+        if(!this.isFiring){
+            this.isFiring=true;
+            this.sfxRocket.play();  // play sfx
+        }
     }
 }
