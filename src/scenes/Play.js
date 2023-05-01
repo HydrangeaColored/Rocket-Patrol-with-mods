@@ -172,7 +172,7 @@ class Play extends Phaser.Scene {
                 this.scoreLeft.text = this.p1Score;
             }
             var bullet=Math.floor(Math.random() * 20);
-            if(bullet==0){
+            if(bullet<3){
                 this.bossPellet.push(this.add.sprite(this.bossShip.x+32,this.bossShip.y+16,"pellet"));
             }
             for (var i = 0; i < this.bossPellet.length; i++) {
