@@ -1,6 +1,6 @@
 /*
 Steven Ren
-Dark Souls 4
+Dark Souls 4 featuring Dante from Devil May Cry & Knuckles (new Funky Mode)
 13 hours
 mods:
 different kinds of powerups (15)
