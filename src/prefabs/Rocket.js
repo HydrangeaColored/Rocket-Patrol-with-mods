@@ -8,6 +8,8 @@ class Rocket extends Phaser.GameObjects.Sprite {
       this.isFiring=false;
       this.moveSpeed=2;
       this.sfxRocket = scene.sound.add('sfx_rocket'); // add rocket sfx
+      // powerups: 0 = none, 1 = triple shot, 2 = big shot
+      this.powerup=0;
     }
     update(){
         /* if(!this.isFiring){
@@ -38,7 +40,7 @@ class Rocket extends Phaser.GameObjects.Sprite {
             this.x=borderUISize;
         }else if(game.input.mousePointer.x>=game.config.width-borderUISize && (game.input.mousePointer.y>=(borderPadding+borderUISize)) && (game.input.mousePointer.y<=(game.config.height-borderPadding))){
             this.x=game.config.width-borderUISize;
-        }else if((game.input.mousePointer.y>=(borderPadding+borderUISize)) && (game.input.mousePointer.y<=(game.config.height-borderPadding))){
+        }else if((game.input.mousePointer.y>=(borderPadding+borderUISize)) && (game.input.mousePointer.y<=(game.config.height-borderPadding-borderUISize))){
             this.x=game.input.mousePointer.x;
         }
     }
