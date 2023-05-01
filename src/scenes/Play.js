@@ -162,6 +162,7 @@ class Play extends Phaser.Scene {
                     this.p1Rocket.alpha = 1;                       // make ship visible again
                     boom.destroy();                       // remove explosion sprite
                 });
+                this.sound.play('bossHit');
                 // score add and repaint
                 if(this.p1Rocket.powerup==2){
                     this.p1Score += 2*this.bossShip.points;
