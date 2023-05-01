@@ -76,12 +76,14 @@ class Play extends Phaser.Scene {
         this.timedEvent = this.time.addEvent({ delay: 1000, callback: this.updateTime, callbackScope: this, loop: true });
         this.currTime = game.settings.gameTimer/1000;
         this.timeLeft = this.add.text(game.config.width/2-borderUISize - borderPadding*2, borderUISize + borderPadding*2, this.currTime+this.additionalTime, timeConfig);
-
+        scoreConfig.fixedWidth = 0;
         // GAME OVER flag
         this.gameOver = false;
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+        //Implement the 'FIRE' UI text from the original game (5)
+        this.fireText = this.add.text(game.config.width - 6*borderPadding-2*borderUISize, borderUISize + borderPadding*2, "", scoreConfig);
         // 60-second play clock
-        scoreConfig.fixedWidth = 0;
+        
 
         /*this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
@@ -91,6 +93,11 @@ class Play extends Phaser.Scene {
 
     }
     update() {
+        if(this.p1Rocket.isFiring==true){
+            this.fireText.text="FIRE";
+        }else{
+            this.fireText.text="";
+        }
         // check key input for restart
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
             this.scene.restart();
@@ -107,18 +114,18 @@ class Play extends Phaser.Scene {
         }
         // check collisions
         if(this.checkCollision(this.p1Rocket, this.ship03)) {
-            this.p1Rocket.reset();
             this.shipExplode(this.ship03);
+            this.p1Rocket.reset();
             this.currTime+=5;
         }
         if (this.checkCollision(this.p1Rocket, this.ship02)) {
-            this.p1Rocket.reset();
             this.shipExplode(this.ship02);
+            this.p1Rocket.reset();
             this.currTime+=5;
         }
         if (this.checkCollision(this.p1Rocket, this.ship01)) {
-            this.p1Rocket.reset();
             this.shipExplode(this.ship01);
+            this.p1Rocket.reset();
             this.currTime+=5;
         }
         
@@ -141,6 +148,8 @@ class Play extends Phaser.Scene {
         }
     }
     shipExplode(ship) {
+        this.fireText.text="";
+        console.log("temp");
         // temporarily hide ship
         ship.alpha = 0;
         // create explosion sprite at ship's position
@@ -153,8 +162,27 @@ class Play extends Phaser.Scene {
         });
         // score add and repaint
         this.p1Score += ship.points;
-        this.scoreLeft.text = this.p1Score;  
-        this.sound.play('sfx_explosion');
+        this.scoreLeft.text = this.p1Score;
+
+
+       // Create 4 new explosion sound effects and randomize which one plays on impact (10)
+        switch (Math.floor(Math.random() * 5)){
+            case 0:
+                this.sound.play('sfx_explosion');
+                break;
+            case 1:
+                this.sound.play('sfx_explosion1');
+                break;
+            case 2:
+                this.sound.play('sfx_explosion2');
+                break;
+            case 3:
+                this.sound.play('sfx_explosion3');
+                break;
+            case 4:
+                this.sound.play('sfx_explosion4');
+                break;
+        }
     }
 
     updateTime (){

@@ -34,11 +34,11 @@ class Rocket extends Phaser.GameObjects.Sprite {
         if(this.y<=borderUISize*3+borderPadding){
             this.reset();
         }
-        if(game.input.mousePointer.x<=borderUISize){
+        if(game.input.mousePointer.x<=borderUISize && (game.input.mousePointer.y>=(borderPadding+borderUISize)) && (game.input.mousePointer.y<=(game.config.height-borderPadding))){
             this.x=borderUISize;
-        }else if(game.input.mousePointer.x>=game.config.width-borderUISize){
+        }else if(game.input.mousePointer.x>=game.config.width-borderUISize && (game.input.mousePointer.y>=(borderPadding+borderUISize)) && (game.input.mousePointer.y<=(game.config.height-borderPadding))){
             this.x=game.config.width-borderUISize;
-        }else{
+        }else if((game.input.mousePointer.y>=(borderPadding+borderUISize)) && (game.input.mousePointer.y<=(game.config.height-borderPadding))){
             this.x=game.input.mousePointer.x;
         }
     }
