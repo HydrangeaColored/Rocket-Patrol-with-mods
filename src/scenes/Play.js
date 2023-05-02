@@ -213,6 +213,9 @@ class Play extends Phaser.Scene {
             }
             if(this.checkCollision(this.p1Rocket, this.powerupListOne[i])){
                 this.powerupListOne[i].destroy();
+                if(this.p1Rocket.powerup==2){
+                    this.p1Rocket.setTexture('rocket');/////////////////////////////
+                }
                 this.p1Rocket.powerup=1;
                 this.p1Score += 5;
                 this.scoreLeft.text = this.p1Score;
