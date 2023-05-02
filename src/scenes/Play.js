@@ -140,14 +140,14 @@ class Play extends Phaser.Scene {
                 this.shipExplode(this.ship02);
                 this.generatePowerUp();
                 this.p1Rocket.reset();
-                this.currTime+=3;
+                this.currTime+=2;
                 this.totalEnemies++;
             }
             if (this.checkCollision(this.p1Rocket, this.ship01)) {
                 this.shipExplode(this.ship01);
                 this.generatePowerUp();
                 this.p1Rocket.reset();
-                this.currTime+=5;
+                this.currTime+=3;
                 this.totalEnemies++;
             }
         }else{
@@ -214,7 +214,7 @@ class Play extends Phaser.Scene {
             if(this.checkCollision(this.p1Rocket, this.powerupListOne[i])){
                 this.powerupListOne[i].destroy();
                 if(this.p1Rocket.powerup==2){
-                    this.p1Rocket.setTexture('rocket');/////////////////////////////
+                    this.p1Rocket.setTexture('rocket');
                 }
                 this.p1Rocket.powerup=1;
                 this.p1Score += 5;
